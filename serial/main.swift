@@ -43,7 +43,6 @@ if let serialNumber = getSerialNumber() {
     // Clear the pasteboard of previous contents
     pasteboard.setString(serialNumber, forType: .string)
     // Copy the serial number to the pasteboard
-    exit(0)
 } else {
     print("Failed to retrieve serial number")
     exit(1)

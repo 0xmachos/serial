@@ -18,15 +18,15 @@ import AppKit
 /// - Returns: An optional `String` containing the serial number of the device, or `nil` if retrieval fails.
 func getSerialNumber() -> String? {
     let platformExpert = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("IOPlatformExpertDevice") )
-   
+
     // Check if the platformExpert value is valid
     guard platformExpert != IO_OBJECT_NULL else {
         return nil
     }
-    
+
     // Get the serial number property
     guard let serialNumber = (IORegistryEntryCreateCFProperty(platformExpert,
-                                kIOPlatformSerialNumberKey as CFString, kCFAllocatorDefault, 0).takeRetainedValue() as? String) else {
+                kIOPlatformSerialNumberKey as CFString, kCFAllocatorDefault, 0).takeRetainedValue() as? String) else {
 //        https://stackoverflow.com/a/29049072
         return nil
   }
@@ -37,7 +37,7 @@ func getSerialNumber() -> String? {
 
 if let serialNumber = getSerialNumber() {
     print(serialNumber)
-    
+
     let pasteboard = NSPasteboard.general
     pasteboard.clearContents()
     // Clear the pasteboard of previous contents
@@ -48,4 +48,3 @@ if let serialNumber = getSerialNumber() {
     print("Failed to retrieve serial number")
     exit(1)
 }
-
